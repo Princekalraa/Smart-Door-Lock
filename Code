@@ -1,0 +1,26 @@
+//Code : - 
+
+#include <SoftwareSerial.h>
+#include <Servo.h>                         
+Servo MOTOR;
+String value;
+int TxD = 11;
+int RxD = 10;
+
+
+SoftwareSerial bluetooth(TxD, RxD);
+void setup() {
+  MOTOR.attach(3);   
+Serial.begin(9600);       // start serial communication at 9600bps
+  bluetooth.begin(9600);}
+void loop() {
+  Serial.println(value);
+ if (bluetooth.available())
+   { value = bluetooth.readString();
+    if (value == "open"){
+    MOTOR.write(0);   // motor will move 0 degrees
+delay(500);      }
+    if (value == "close")
+     MOTOR.write(90);   // motor will move 0 degrees
+delay(500);    }
+ }
